@@ -7,6 +7,14 @@ const OMDB_API_KEY = process.env.OMDB_API_KEY;
 
 const currentMcuData = require('../src/mcuData');
 
+// Lista de títulos não-MCU para remover
+const nonMcuTitles = [
+  'Godzilla: King of the Monsters',
+  'Godzilla',
+  'Godzilla vs. Kong',
+  'Godzilla x Kong: The New Empire'
+];
+
 async function fetchMcuCollection() {
   const url = `https://api.themoviedb.org/3/collection/535313?api_key=${TMDB_API_KEY}&language=en-US`;
   const res = await axios.get(url).catch(() => ({ data: { parts: [] } }));
@@ -16,8 +24,8 @@ async function fetchMcuCollection() {
 
 async function fetchNewMcuReleases() {
   const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=1`;
-  const discoverMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=release_date.asc`;
-  const discoverSeriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=first_air_date.asc`;
+  const discoverMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=release_date.asc&page=1`;
+  const discoverSeriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=first_air_date.asc&page=1`;
 
   const [upcomingMoviesRes, discoverMoviesRes, discoverSeriesRes] = await Promise.all([
     axios.get(upcomingMoviesUrl).catch(() => ({ data: { results: [] } })),
@@ -25,17 +33,19 @@ async function fetchNewMcuReleases() {
     axios.get(discoverSeriesUrl).catch(() => ({ data: { results: [] } }))
   ]);
 
-  const filterMarvel = (item) => {
-    const isMarvel = item.production_companies?.some(company => company.id === 420);
-    if (!isMarvel) {
-      console.log(`Filtered out non-Marvel item: ${item.title || item.name}`);
-    }
-    return isMarvel;
-  };
-
-  const upcomingMovies = upcomingMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
-  const discoverMovies = discoverMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
-  const discoverSeries = discoverSeriesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'series' }));
+  // Como with_companies=420 já filtra pela Marvel Studios, não precisamos de um filtro adicional
+  const upcomingMovies = upcomingMoviesRes.data.results.map(item => {
+    console.log(`Upcoming Movie: ${item.title}`);
+    return { ...item, type: 'movie' };
+  });
+  const discoverMovies = discoverMoviesRes.data.results.map(item => {
+    console.log(`Discover Movie: ${item.title}`);
+    return { ...item, type: 'movie' };
+  });
+  const discoverSeries = discoverSeriesRes.data.results.map(item => {
+    console.log(`Discover Series: ${item.name}`);
+    return { ...item, type: 'series' };
+  });
 
   console.log(`Upcoming Movies: ${upcomingMovies.length}, Discover Movies: ${discoverMovies.length}, Discover Series: ${discoverSeries.length}`);
   return [...upcomingMovies, ...discoverMovies, ...discoverSeries];
@@ -53,10 +63,14 @@ async function updateMcuData() {
   console.log('Starting update of mcuData.js...');
   console.log(`Current mcuData length: ${currentMcuData.length}`);
 
+  // Filtrar itens não-MCU do mcuData existente
+  const filteredMcuData = currentMcuData.filter(item => !nonMcuTitles.includes(item.title));
+  console.log(`After filtering non-MCU items, mcuData length: ${filteredMcuData.length}`);
+
   const mcuCollection = await fetchMcuCollection();
   const newReleases = await fetchNewMcuReleases();
 
-  const updatedMcuData = [...currentMcuData];
+  const updatedMcuData = [...filteredMcuData];
   const existingIds = new Set(updatedMcuData.map(item => item.imdbId));
 
   const allReleases = [...mcuCollection, ...newReleases];
