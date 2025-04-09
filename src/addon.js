@@ -12,6 +12,8 @@ builder.defineCatalogHandler(async ({ type, id }) => {
   console.log(`Catalog requested - Type: ${type}, ID: ${id}`);
   if (id !== 'marvel-mcu') return { metas: [] };
 
+  console.log(`Total items in mcuData: ${mcuData.length}`); // Log para verificar o tamanho da lista
+
   const metas = await Promise.all(
     mcuData.map(async (item) => {
       try {
