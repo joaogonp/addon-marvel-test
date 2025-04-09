@@ -10,6 +10,7 @@ const currentMcuData = require('../src/mcuData');
 async function fetchMcuCollection() {
   const url = `https://api.themoviedb.org/3/collection/535313?api_key=${TMDB_API_KEY}&language=en-US`;
   const res = await axios.get(url).catch(() => ({ data: { parts: [] } }));
+  console.log(`Fetched MCU Collection: ${res.data.parts.length} items`);
   return res.data.parts.map(item => ({ ...item, type: 'movie' }));
 }
 
@@ -25,24 +26,33 @@ async function fetchNewMcuReleases() {
   ]);
 
   const filterMarvel = (item) => {
-    return item.production_companies?.some(company => company.id === 420);
+    const isMarvel = item.production_companies?.some(company => company.id === 420);
+    if (!isMarvel) {
+      console.log(`Filtered out non-Marvel item: ${item.title || item.name}`);
+    }
+    return isMarvel;
   };
 
   const upcomingMovies = upcomingMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
   const discoverMovies = discoverMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
   const discoverSeries = discoverSeriesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'series' }));
 
+  console.log(`Upcoming Movies: ${upcomingMovies.length}, Discover Movies: ${discoverMovies.length}, Discover Series: ${discoverSeries.length}`);
   return [...upcomingMovies, ...discoverMovies, ...discoverSeries];
 }
 
 async function getImdbId(title, year) {
   const omdbUrl = `http://www.omdbapi.com/?t=${encodeURIComponent(title)}&y=${year}&apikey=${OMDB_API_KEY}`;
   const res = await axios.get(omdbUrl).catch(() => ({}));
-  return res.data?.imdbID || null;
+  const imdbId = res.data?.imdbID || null;
+  console.log(`OMDb lookup for ${title} (${year}): ${imdbId || 'Not found'}`);
+  return imdbId;
 }
 
 async function updateMcuData() {
-  console.log('Fetching MCU collection and new releases...');
+  console.log('Starting update of mcuData.js...');
+  console.log(`Current mcuData length: ${currentMcuData.length}`);
+
   const mcuCollection = await fetchMcuCollection();
   const newReleases = await fetchNewMcuReleases();
 
@@ -50,36 +60,41 @@ async function updateMcuData() {
   const existingIds = new Set(updatedMcuData.map(item => item.imdbId));
 
   const allReleases = [...mcuCollection, ...newReleases];
+  console.log(`Total releases to process: ${allReleases.length}`);
 
   for (const release of allReleases) {
     const title = (release.title || release.name || '').replace(/Season \d+/i, '').trim();
     const releaseYear = (release.release_date || release.first_air_date || 'TBD').split('-')[0];
 
     if (release.genre_ids?.includes(16) && title !== 'What If...?') {
+      console.log(`Skipping animation: ${title}`);
       continue;
     }
 
     const imdbId = await getImdbId(title, releaseYear);
-    if (!imdbId || existingIds.has(imdbId)) {
+    // Temporariamente, vamos adicionar mesmo sem imdbId para debug
+    const uniqueId = imdbId || `tmdb-${release.id}`;
+    if (existingIds.has(uniqueId)) {
+      console.log(`Skipping duplicate: ${title} (${uniqueId})`);
       continue;
     }
 
     const newEntry = {
       title: title,
       type: release.type,
-      imdbId: imdbId,
+      imdbId: imdbId || `tmdb-${release.id}`, // Fallback para TMDb ID
       releaseYear: releaseYear,
       poster: release.poster_path ? `https://image.tmdb.org/t/p/w500${release.poster_path}` : null
     };
 
     updatedMcuData.push(newEntry);
-    existingIds.add(imdbId);
-    console.log(`Added new release: ${title} (${imdbId})`);
+    existingIds.add(uniqueId);
+    console.log(`Added new release: ${title} (${newEntry.imdbId})`);
   }
 
   const fileContent = `module.exports = ${JSON.stringify(updatedMcuData, null, 2)};\n`;
   fs.writeFileSync(path.join(__dirname, '../src/mcuData.js'), fileContent, 'utf8');
-  console.log('mcuData.js updated successfully');
+  console.log(`mcuData.js updated successfully with ${updatedMcuData.length} items`);
 }
 
 updateMcuData().catch(err => {
