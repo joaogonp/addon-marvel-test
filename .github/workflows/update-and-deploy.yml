@@ -24,8 +24,8 @@ jobs:
         run: |
           ls -la  # Lista arquivos na raiz
           ls -la scripts/  # Lista arquivos em scripts/
-          node scripts/updateMcuData.js  # Ajustado para o caminho correto
-          cat src/mcuData.js
+          node scripts/updateMcuData.js  # Executa o script
+          cat src/mcuData.js  # Mostra o resultado
       - name: Commit changes
         run: |
           git config user.name "GitHub Action"
