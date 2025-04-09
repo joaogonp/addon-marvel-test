@@ -15,28 +15,24 @@ async function fetchMcuCollection() {
 
 async function fetchNewMcuReleases() {
   const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=1`;
-  const onAirSeriesUrl = `https://api.themoviedb.org/3/tv/on_the_air?api_key=${TMDB_API_KEY}&language=en-US&page=1`;
-  const airingTodaySeriesUrl = `https://api.themoviedb.org/3/tv/airing_today?api_key=${TMDB_API_KEY}&language=en-US&page=1`;
+  const discoverMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=release_date.asc`; // Marvel Studios
+  const discoverSeriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=first_air_date.asc`;
 
-  const [upcomingMoviesRes, onAirSeriesRes, airingTodaySeriesRes] = await Promise.all([
+  const [upcomingMoviesRes, discoverMoviesRes, discoverSeriesRes] = await Promise.all([
     axios.get(upcomingMoviesUrl).catch(() => ({ data: { results: [] } })),
-    axios.get(onAirSeriesUrl).catch(() => ({ data: { results: [] } })),
-    axios.get(airingTodaySeriesUrl).catch(() => ({ data: { results: [] } }))
+    axios.get(discoverMoviesUrl).catch(() => ({ data: { results: [] } })),
+    axios.get(discoverSeriesUrl).catch(() => ({ data: { results: [] } }))
   ]);
 
   const filterMarvel = (item) => {
-    const overview = item.overview?.toLowerCase() || '';
-    return (
-      item.production_companies?.some(company => company.id === 420) ||
-      overview.includes('marvel') || overview.includes('mcu')
-    );
+    return item.production_companies?.some(company => company.id === 420); // Apenas Marvel Studios
   };
 
   const upcomingMovies = upcomingMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
-  const onAirSeries = onAirSeriesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'series' }));
-  const airingTodaySeries = airingTodaySeriesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'series' }));
+  const discoverMovies = discoverMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
+  const discoverSeries = discoverSeriesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'series' }));
 
-  return [...upcomingMovies, ...onAirSeries, ...airingTodaySeries];
+  return [...upcomingMovies, ...discoverMovies, ...discoverSeries];
 }
 
 async function getImdbId(title, year) {
@@ -72,7 +68,8 @@ async function updateMcuData() {
       title: title,
       type: release.type,
       imdbId: imdbId,
-      releaseYear: releaseYear
+      releaseYear: releaseYear,
+      poster: release.poster_path ? `https://image.tmdb.org/t/p/w500${release.poster_path}` : null
     };
 
     updatedMcuData.push(newEntry);
@@ -80,7 +77,6 @@ async function updateMcuData() {
     console.log(`Added new release: ${title} (${imdbId})`);
   }
 
-  // Definir fileContent antes de usar
   const fileContent = `module.exports = ${JSON.stringify(updatedMcuData, null, 2)};\n`;
   fs.writeFileSync(path.join(__dirname, '../src/mcuData.js'), fileContent, 'utf8');
   console.log('mcuData.js updated successfully');
