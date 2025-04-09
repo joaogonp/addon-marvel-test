@@ -15,7 +15,7 @@ async function fetchMcuCollection() {
 
 async function fetchNewMcuReleases() {
   const upcomingMoviesUrl = `https://api.themoviedb.org/3/movie/upcoming?api_key=${TMDB_API_KEY}&language=en-US&page=1`;
-  const discoverMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=release_date.asc`; // Marvel Studios
+  const discoverMoviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=release_date.asc`;
   const discoverSeriesUrl = `https://api.themoviedb.org/3/discover/tv?api_key=${TMDB_API_KEY}&with_companies=420&sort_by=first_air_date.asc`;
 
   const [upcomingMoviesRes, discoverMoviesRes, discoverSeriesRes] = await Promise.all([
@@ -25,7 +25,7 @@ async function fetchNewMcuReleases() {
   ]);
 
   const filterMarvel = (item) => {
-    return item.production_companies?.some(company => company.id === 420); // Apenas Marvel Studios
+    return item.production_companies?.some(company => company.id === 420);
   };
 
   const upcomingMovies = upcomingMoviesRes.data.results.filter(filterMarvel).map(item => ({ ...item, type: 'movie' }));
