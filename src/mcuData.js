@@ -304,5 +304,29 @@ module.exports = [
     "type": "movie",
     "imdbId": "tt10676052",
     "releaseYear": "2025"
+  },
+  {
+    "title": "Godzilla: King of the Monsters",
+    "type": "movie",
+    "imdbId": "tt3741700",
+    "releaseYear": "2019"
+  },
+  {
+    "title": "Godzilla",
+    "type": "movie",
+    "imdbId": "tt0831387",
+    "releaseYear": "2014"
+  },
+  {
+    "title": "Godzilla vs. Kong",
+    "type": "movie",
+    "imdbId": "tt5034838",
+    "releaseYear": "2021"
+  },
+  {
+    "title": "Godzilla x Kong: The New Empire",
+    "type": "movie",
+    "imdbId": "tt14539740",
+    "releaseYear": "2024"
   }
 ];
