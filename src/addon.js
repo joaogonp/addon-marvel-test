@@ -1,6 +1,6 @@
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 const axios = require('axios');
-const mcuData = require('./mcuData');
+const mcuData = require('./src/mcuData');
 const { tmdbKey, omdbKey, port } = require('./config');
 
 // Inicialização do add-on
@@ -16,7 +16,6 @@ builder.defineCatalogHandler(async ({ type, id }) => {
     mcuData.map(async (item) => {
       try {
         const omdbUrl = `http://www.omdbapi.com/?i=${item.imdbId}&apikey=${omdbKey}`;
-        // Buscar no TMDB por título e ano, em vez de imdb_id
         const tmdbSearchUrl = `https://api.themoviedb.org/3/search/${item.type === 'movie' ? 'movie' : 'tv'}?api_key=${tmdbKey}&query=${encodeURIComponent(item.title)}&year=${item.releaseYear}`;
 
         console.log(`Fetching data for ${item.title} (${item.imdbId})...`);
@@ -55,16 +54,15 @@ builder.defineCatalogHandler(async ({ type, id }) => {
           description: tmdbData.overview || omdbData.Plot || 'No description available',
           releaseInfo: item.releaseYear,
           imdbRating: omdbData.imdbRating || 'N/A',
-          genres: tmdbData.genres ? tmdbData.genres.map(g => g.name) : ['Action', 'Adventure']
+          genres: tmdbData.genres ? tmdbData.genres.map(g => g.name) : (omdbData.Genre ? omdbData.Genre.split(', ') : ['Action', 'Adventure'])
         };
       } catch (err) {
         console.error(`Error processing ${item.title} (${item.imdbId}): ${err.message}`);
-        return null; // Retorna null para itens com erro, será filtrado depois
+        return null;
       }
     })
   );
 
-  // Filtrar itens nulos (que falharam)
   const validMetas = metas.filter(item => item !== null);
   console.log(`Catalog generated successfully with ${validMetas.length} items`);
   return { metas: validMetas };
