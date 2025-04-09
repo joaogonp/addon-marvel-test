@@ -6,6 +6,7 @@ const TMDB_API_KEY = process.env.TMDB_API_KEY;
 const OMDB_API_KEY = process.env.OMDB_API_KEY;
 
 const currentMcuData = require('../src/mcuData');
+fs.writeFileSync(path.join(__dirname, '../src/mcuData.js'), fileContent, 'utf8');
 
 async function fetchMcuCollection() {
   const url = `https://api.themoviedb.org/3/collection/535313?api_key=${TMDB_API_KEY}&language=en-US`;
