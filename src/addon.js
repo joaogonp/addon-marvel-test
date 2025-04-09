@@ -1,6 +1,6 @@
 const { addonBuilder, serveHTTP } = require('stremio-addon-sdk');
 const axios = require('axios');
-const mcuData = require('./src/mcuData');
+const mcuData = require('./mcuData');
 const { tmdbKey, omdbKey, port } = require('./config');
 
 // Inicialização do add-on
