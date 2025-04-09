@@ -72,7 +72,6 @@ async function updateMcuData() {
     }
 
     const imdbId = await getImdbId(title, releaseYear);
-    // Temporariamente, vamos adicionar mesmo sem imdbId para debug
     const uniqueId = imdbId || `tmdb-${release.id}`;
     if (existingIds.has(uniqueId)) {
       console.log(`Skipping duplicate: ${title} (${uniqueId})`);
@@ -82,7 +81,7 @@ async function updateMcuData() {
     const newEntry = {
       title: title,
       type: release.type,
-      imdbId: imdbId || `tmdb-${release.id}`, // Fallback para TMDb ID
+      imdbId: imdbId || `tmdb-${release.id}`,
       releaseYear: releaseYear,
       poster: release.poster_path ? `https://image.tmdb.org/t/p/w500${release.poster_path}` : null
     };
