@@ -305,4 +305,228 @@ module.exports = [
     "imdbId": "tt10676052",
     "releaseYear": "2025"
   },
+  {
+    "title": "Godzilla: King of the Monsters",
+    "type": "movie",
+    "imdbId": "tt3741700",
+    "releaseYear": "2019",
+    "poster": "https://image.tmdb.org/t/p/w500/1lFKupnghulH7oMRTJRLTXMwgow.jpg"
+  },
+  {
+    "title": "Godzilla",
+    "type": "movie",
+    "imdbId": "tt0831387",
+    "releaseYear": "2014",
+    "poster": "https://image.tmdb.org/t/p/w500/zokD6uxR2iWfYM3Y84yGJvnNTK7.jpg"
+  },
+  {
+    "title": "Godzilla vs. Kong",
+    "type": "movie",
+    "imdbId": "tt5034838",
+    "releaseYear": "2021",
+    "poster": "https://image.tmdb.org/t/p/w500/pgqgaUx1cJb5oZQQ5v0tNARCeBp.jpg"
+  },
+  {
+    "title": "Godzilla x Kong: The New Empire",
+    "type": "movie",
+    "imdbId": "tt14539740",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/z1p34vh7dEOnLDmyCrlUVLuoDzd.jpg"
+  },
+  {
+    "title": "A Minecraft Movie",
+    "type": "movie",
+    "imdbId": "tt3566834",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/yFHHfHcUgGAxziP1C3lLt0q2T4s.jpg"
+  },
+  {
+    "title": "In the Lost Lands",
+    "type": "movie",
+    "imdbId": "tt4419684",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/dDlfjR7gllmr8HTeN6rfrYhTdwX.jpg"
+  },
+  {
+    "title": "Fight or Flight",
+    "type": "movie",
+    "imdbId": "tt13652286",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/x4nWnfgJvL045rcUCSJzfgIIY9i.jpg"
+  },
+  {
+    "title": "Peter Pan's Neverland Nightmare",
+    "type": "movie",
+    "imdbId": "tt21955520",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/mOR1Ks0EcXocwMV4EPv4letz0F5.jpg"
+  },
+  {
+    "title": "Black Bag",
+    "type": "movie",
+    "imdbId": "tt30988739",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/hHPovtU4b96LHcoeEwRkGHI5btw.jpg"
+  },
+  {
+    "title": "Snow White",
+    "type": "movie",
+    "imdbId": "tt6208148",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/xWWg47tTfparvjK0WJNX4xL8lW2.jpg"
+  },
+  {
+    "title": "Old Guy",
+    "type": "movie",
+    "imdbId": "tt26442053",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/qx0NV9VEZTXN5c1qruhyHclMauY.jpg"
+  },
+  {
+    "title": "Opus",
+    "type": "movie",
+    "imdbId": "tt29929565",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/m0du9dsiOVeb0SgfqR8ZAEPRxww.jpg"
+  },
+  {
+    "title": "I, the Executioner",
+    "type": "movie",
+    "imdbId": "tt30287778",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/gAtP0usArK5gVOBObnsENKLwML8.jpg"
+  },
+  {
+    "title": "The Monkey",
+    "type": "movie",
+    "imdbId": "tt27714946",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/yYa8Onk9ow7ukcnfp2QWVvjWYel.jpg"
+  },
+  {
+    "title": "Alarum",
+    "type": "movie",
+    "imdbId": "tt31456973",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/v313aUGmMNj6yNveaiQXysBmjVS.jpg"
+  },
+  {
+    "title": "Heretic",
+    "type": "movie",
+    "imdbId": "tt28015403",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/fr96XzlzsONrQrGfdLMiwtQjott.jpg"
+  },
+  {
+    "title": "Paddington in Peru",
+    "type": "movie",
+    "imdbId": "tt5822536",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/1ffZAucqfvQu36x1C49XfOdjuOG.jpg"
+  },
+  {
+    "title": "Pabrik Gula",
+    "type": "movie",
+    "imdbId": "tmdb-1355126",
+    "releaseYear": "2025",
+    "poster": "https://image.tmdb.org/t/p/w500/nwmR5EL5m8tcPBud6OwUyt8p5z1.jpg"
+  },
+  {
+    "title": "Werewolves",
+    "type": "movie",
+    "imdbId": "tt15041836",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/otXBlMPbFBRs6o2Xt6KX59Qw6dL.jpg"
+  },
+  {
+    "title": "Parthenope",
+    "type": "movie",
+    "imdbId": "tt23853982",
+    "releaseYear": "2024",
+    "poster": "https://image.tmdb.org/t/p/w500/5SqICqUQaYFeZs1UnBZ4AN6DwcP.jpg"
+  },
+  {
+    "title": "Ghost Rider",
+    "type": "movie",
+    "imdbId": "tt0259324",
+    "releaseYear": "2007",
+    "poster": "https://image.tmdb.org/t/p/w500/d9Oan9XJJ6gRJa64Ifsgp1sXbC4.jpg"
+  },
+  {
+    "title": "Spider-Man 3",
+    "type": "movie",
+    "imdbId": "tt0413300",
+    "releaseYear": "2007",
+    "poster": "https://image.tmdb.org/t/p/w500/qFmwhVUoUSXjkKRmca5yGDEXBIj.jpg"
+  },
+  {
+    "title": "Jack Kirby: Story Teller",
+    "type": "movie",
+    "imdbId": "tt3001088",
+    "releaseYear": "2007",
+    "poster": "https://image.tmdb.org/t/p/w500/x1yPNPKLJvyiCcoHbR2jE8BuYwy.jpg"
+  },
+  {
+    "title": "Fantastic Four: Rise of the Silver Surfer",
+    "type": "movie",
+    "imdbId": "tt0486576",
+    "releaseYear": "2007",
+    "poster": "https://image.tmdb.org/t/p/w500/f3ldtPF7SESMcyAIyIJHBLlBBkr.jpg"
+  },
+  {
+    "title": "Punisher: War Zone",
+    "type": "movie",
+    "imdbId": "tt0450314",
+    "releaseYear": "2008",
+    "poster": "https://image.tmdb.org/t/p/w500/oOvKJgYUIpfswGHAdW6159bPbvM.jpg"
+  },
+  {
+    "title": "Marvel One-Shot: The Consultant",
+    "type": "movie",
+    "imdbId": "tt2011118",
+    "releaseYear": "2011",
+    "poster": "https://image.tmdb.org/t/p/w500/xqNLXUUvBnfVk6m3QFGGU0Grgs7.jpg"
+  },
+  {
+    "title": "Marvel One-Shot: A Funny Thing Happened on the Way to Thor's Hammer",
+    "type": "movie",
+    "imdbId": "tt2011109",
+    "releaseYear": "2011",
+    "poster": "https://image.tmdb.org/t/p/w500/njrOqsmFH4pxBrhcoslqLfw2OGk.jpg"
+  },
+  {
+    "title": "Marvel One-Shot: Item 47",
+    "type": "movie",
+    "imdbId": "tt2247732",
+    "releaseYear": "2012",
+    "poster": "https://image.tmdb.org/t/p/w500/hnSxG8clwLuAXEkp9emc8HCUcHD.jpg"
+  },
+  {
+    "title": "Mutant X",
+    "type": "series",
+    "imdbId": "tt0283203",
+    "releaseYear": "2001",
+    "poster": "https://image.tmdb.org/t/p/w500/yiKg027jdpkSsguVBI9WqliNWez.jpg"
+  },
+  {
+    "title": "Marvel Studios Legends",
+    "type": "series",
+    "imdbId": "tt13650480",
+    "releaseYear": "2021",
+    "poster": "https://image.tmdb.org/t/p/w500/EpDuYIK81YtCUT3gH2JDpyj8Qk.jpg"
+  },
+  {
+    "title": "Marvel Studios Assembled",
+    "type": "series",
+    "imdbId": "tt14094206",
+    "releaseYear": "2021",
+    "poster": "https://image.tmdb.org/t/p/w500/v2BHRwtQVkt5fssLdo5MpFgHJPY.jpg"
+  },
+  {
+    "title": "Voices Rising: The Music of Wakanda Forever",
+    "type": "series",
+    "imdbId": "tt26345409",
+    "releaseYear": "2023",
+    "poster": "https://image.tmdb.org/t/p/w500/tD0z0ONzplsO7JLkDk1cMTWR1Rd.jpg"
+  }
 ];
